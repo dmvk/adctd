@@ -1,7 +1,13 @@
 {
   "name": "adctd",
   "version": "0.4.0",
+  "author": "David Moravek <david.moravek@gmail.com>",
   "description": "Simple dependency injection container",
+  "homepage": "https://github.com/davidmoravek/adctd",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/davidmoravek/adctd.git"
+  },
   "keywords": [
     "di",
     "dic",
@@ -10,7 +16,6 @@
     "container"
   ],
   "main": "index.coffee",
-  "author": "David Moravek <david.moravek@gmail.com>",
   "dependencies": {
     "lodash": "^2.4.1"
   }
