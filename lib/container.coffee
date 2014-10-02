@@ -50,13 +50,19 @@ module.exports = (basepath) ->
 			# if any of factory's dependencies has cache flag set to false - inherit it
 
 			factory = factories[name]
-			throw new Error "Dependency '#{name}' does not exist" unless factory
+			unless factory
+				console.log 'ERROR GETTING SERVICE', name
+				throw new Error "Dependency '#{name}' does not exist"
 
 			return false if factory.opts.cache is false
 
 			if factory.dependencies.length > 0
 				for dependency in factory.dependencies
-					return false unless resolveCacheFlag dependency
+					try
+						return false unless resolveCacheFlag dependency
+					catch e
+						console.log 'PARENT SERVICE', name
+						throw e
 
 			true
 
@@ -94,7 +100,7 @@ module.exports = (basepath) ->
 
 				args = factory.dependencies.map (dependency) =>
 					return overrides[dependency] if dependency of overrides
-					@get dependency, overrides, _.clone(visited), cache
+					@get dependency, overrides, JSON.parse(JSON.stringify visited), cache
 
 				# create instance
 
